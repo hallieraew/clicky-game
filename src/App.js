@@ -4,6 +4,7 @@ import Cards from "./components/Cards";
 import fruits from "./fruits.json";
 import Header from "./components/Header";
 import Counter from "./components/Counter";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
 	state = {
@@ -14,62 +15,51 @@ class App extends React.Component {
 	};
 
 	handleBtnClick = index => {
-
 		this.setState({
 			message: "Keep selecting fruits!"
-		})
+		});
 
 		if (!this.state.fruits[index].clicked) {
 			console.log("not clicked");
-			this.setState({
-				fruits: this.state.fruits.map((fruit, i) =>
-					i === index ? { ...fruit, clicked: true } : fruit
-				),
-				score: this.state.score + 1,
-				topScore: (this.state.score +1) > this.state.topScore ? (this.state.score +1) : this.state.topScore
-			},
-			() => this.setState({
-				fruits: this.state.fruits.sort(() => 0.5 - Math.random())
-			}));
+			this.setState(
+				{
+					fruits: this.state.fruits.map((fruit, i) =>
+						i === index ? { ...fruit, clicked: true } : fruit
+					),
+					score: this.state.score + 1,
+					topScore:
+						this.state.score + 1 > this.state.topScore
+							? this.state.score + 1
+							: this.state.topScore
+				},
+				() =>
+					this.setState({
+						fruits: this.state.fruits.sort(() => 0.5 - Math.random())
+					})
+			);
 		} else {
-			console.log("clicked")
+			console.log("clicked");
 			this.setState({
-				fruits: this.state.fruits.map(fruit => ({...fruit, clicked: false})).sort(() => 0.5 - Math.random()),
+				fruits: this.state.fruits
+					.map(fruit => ({ ...fruit, clicked: false }))
+					.sort(() => 0.5 - Math.random()),
 				score: 0,
-				message: "Oh no! You have already picked that one. Select any fruit to start again!"
-
-			})
+				message:
+					"Oh no! You have already picked that one. Select any fruit to start again!"
+			});
 		}
-
-	}
-
-		// get id for image clicked - value or id
-		// determine if it has been clicked
-		// if no - change state of clicked to true, change state.score +1,
-		// if state.score > topscore update topscore
-		// if score = 12 trigger modal (later)
-		// if yes - you lost ~ this.state.store - 0 ,
-		// this.setState({fruits: this.state.fruits.map(fruit => ({...fruit, clicked: false})}))
-		// shuffle array
-
-		// 	if (event) {
-		// 		this.name.push(clickedFruit);
-		// 		this.setState({ score: this.state.score + 1 });
-		// 		this.setState({ topScore: this.state.score });
-		// 	} else {
-		// 		this.setState({ score: 0 });
-		// 	}
-		// shuffle={this.state.fruits.sort(function() {
-		// 	return 0.5 - Math.random();
-
-		// shuffle function from https://css-tricks.com/snippets/javascript/shuffle-array/
-
+	};
+	// shuffle function from https://css-tricks.com/snippets/javascript/shuffle-array/
 
 	render() {
 		return (
 			<Wrapper>
 				<Header />
-				<Counter score={this.state.score} topScore={this.state.topScore} message={this.state.message} />
+				<Counter
+					score={this.state.score}
+					topScore={this.state.topScore}
+					message={this.state.message}
+				/>
 				<div className='container'>
 					<div className='row'>
 						{this.state.fruits.map((fruit, index) => (
@@ -83,6 +73,7 @@ class App extends React.Component {
 						))}
 					</div>
 				</div>
+				<Footer />
 			</Wrapper>
 		);
 	}

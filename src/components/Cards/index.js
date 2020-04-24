@@ -1,7 +1,6 @@
 import React from "react";
 import "./style.css";
 
-
 function Cards(props) {
 	return (
 		<div className='col-3'>
