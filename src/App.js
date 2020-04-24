@@ -15,6 +15,10 @@ class App extends React.Component {
 
 	handleBtnClick = index => {
 
+		this.setState({
+			message: "Keep selecting fruits!"
+		})
+
 		if (!this.state.fruits[index].clicked) {
 			console.log("not clicked");
 			this.setState({
@@ -32,7 +36,7 @@ class App extends React.Component {
 			this.setState({
 				fruits: this.state.fruits.map(fruit => ({...fruit, clicked: false})).sort(() => 0.5 - Math.random()),
 				score: 0,
-				message: "You lose"
+				message: "Oh no! You have already picked that one. Select any fruit to start again!"
 
 			})
 		}
