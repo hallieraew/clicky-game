@@ -1,0 +1,6 @@
+.wrapper {
+  background: rgba(252, 173, 83, 0.735);
+  height: 100%;
+  padding: 5px;
+  overflow: auto;
+}
