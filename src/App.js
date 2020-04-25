@@ -21,22 +21,28 @@ class App extends React.Component {
 
 		if (!this.state.fruits[index].clicked) {
 			console.log("not clicked");
-			this.setState(
-				{
-					fruits: this.state.fruits.map((fruit, i) =>
-						i === index ? { ...fruit, clicked: true } : fruit
-					),
-					score: this.state.score + 1,
-					topScore:
-						this.state.score + 1 > this.state.topScore
-							? this.state.score + 1
-							: this.state.topScore
-				},
-				() =>
-					this.setState({
-						fruits: this.state.fruits.sort(() => 0.5 - Math.random())
-					})
-			);
+			this.state.score + 1 === 12
+				? this.setState({
+						score: 0,
+						topScore: 0,
+						message: "You won! Let's restart!"
+				  })
+				: this.setState(
+						{
+							fruits: this.state.fruits.map((fruit, i) =>
+								i === index ? { ...fruit, clicked: true } : fruit
+							),
+							score: this.state.score + 1,
+							topScore:
+								this.state.score + 1 > this.state.topScore
+									? this.state.score + 1
+									: this.state.topScore
+						},
+						() =>
+							this.setState({
+								fruits: this.state.fruits.sort(() => 0.5 - Math.random())
+							})
+				  );
 		} else {
 			console.log("clicked");
 			this.setState({
@@ -48,8 +54,9 @@ class App extends React.Component {
 					"Oh no! You have already picked that one. Select any fruit to start again!"
 			});
 		}
+		// shuffle function from https://css-tricks.com/snippets/javascript/shuffle-array/
+
 	};
-	// shuffle function from https://css-tricks.com/snippets/javascript/shuffle-array/
 
 	render() {
 		return (
